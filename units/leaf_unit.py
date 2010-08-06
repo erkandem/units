@@ -30,6 +30,9 @@ class LeafUnit(AbstractUnit):
         self._specifier = specifier
               
     __str__ = get_specifier
+    
+    def str_includes_multiplier(self):
+        return True
 
     def __repr__(self):
         return ("LeafUnit(" + 

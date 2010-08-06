@@ -21,8 +21,8 @@ def unbox(numer, denom, multiplier):
 
 def cancel(numer, denom):
     """Cancel out compatible units in the given numerator and denominator.
-    Return a triple of the implied quantity multiplier that has been 
-    squeezed out, the new numerator and the new denominator."""
+    Return a triple of the new numerator, the new denominator, the implied 
+    quantity multiplier that has been squeezed out."""
     multiplier = 1
     
     simple_numer = numer[:]
@@ -111,14 +111,26 @@ class ComposedUnit(AbstractUnit):
         self.orig_numer = numer
         self.orig_denom = denom
         self.orig_multiplier = multiplier        
+    
+    def str_includes_multiplier(self):
+        return self.orig_multiplier == 1
                  
     def __str__(self):
-        if self.denom:
-            return ((' * '.join([str(x) for x in self.orig_numer]) or '1') + 
-                     " / " + 
-                     ' * '.join([str(x) for x in self.orig_denom]))
+        if self.str_includes_multiplier():
+            # Safe to use original units, so use them, because they are 
+            # more expected
+            numers = self.orig_numer
+            denoms = self.orig_denom
         else:
-            return ' * '.join([str(x) for x in self.numer])
+            numers = self.numer
+
+        if self.denom:
+            return ((' * '.join([str(x) for x in numers]) or '1') + 
+                     " / " + 
+                     ' * '.join([str(x) for x in denoms]))
+        else:
+            return ' * '.join([str(x) for x in numers])
+
 
     def __repr__(self):
         return ("ComposedUnit(" + 

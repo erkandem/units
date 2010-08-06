@@ -53,6 +53,9 @@ class NamedComposedUnit(AbstractUnit):
         return ComposedUnit([self], [other])
         
     __str__ = get_name
+    
+    def str_includes_multiplier(self):
+        return True
 
     def __repr__(self):
         return ("NamedComposedUnit(" + 
