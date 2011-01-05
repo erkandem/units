@@ -22,3 +22,5 @@ Python itself.
 Thanks to Andrew Trusty and Rory Tulk for advice and reviews.
 
 Thanks to Rob Mecham for a bug fix.
+
+Thanks to Jonathan Woodard for discovering and isolating a bug.
