@@ -22,7 +22,7 @@ class NamedComposedUnit(AbstractUnit):
                 composed_unit, 
                 is_si=False):
         """Give a composed unit a new symbol."""
-        # pylint: disable-msg=W0613
+        # pylint: disable=W0613
 
         if name not in REGISTRY:
             REGISTRY[name] = super(NamedComposedUnit, 

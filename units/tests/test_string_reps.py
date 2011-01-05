@@ -53,12 +53,12 @@ def test_named_composed_unit_str():
 
 def setup_module(module):
     # Disable warning about not using module.
-    # pylint: disable-msg=W0613
+    # pylint: disable=W0613
     """Called by py.test before running any of the tests here."""
     define_units()
     
 def teardown_module(module):
     # Disable warning about not using module.
-    # pylint: disable-msg=W0613
+    # pylint: disable=W0613
     """Called after running all of the tests here."""
     REGISTRY.clear()

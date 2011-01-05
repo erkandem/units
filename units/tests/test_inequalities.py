@@ -14,11 +14,13 @@ each of these * valid and invalid comparisons
 ...
 """
 
-# Disable pylint and figleaf warnings about not being able to import py.test.
-# pylint: disable-msg=F0401,C0321
-try: import py.test 
-except ImportError: pass
-# pylint: enable-msg=F0401,C0321
+# Disable pylint and figleaf warnings about not being able to import pytest.
+# pylint: disable=F0401,C0321
+try:
+    import pytest 
+except ImportError:
+    pass
+# pylint: enable=F0401,C0321
 
 from units import unit
 from units.composed_unit import ComposedUnit
@@ -96,22 +98,34 @@ def test_ne(quant1, quant2):
 
 def test_invalid_lt(quant1, quant2):
     """Binary function to assert the operator's exception"""
-    py.test.raises(IncompatibleUnitsError, less_than, quant1, quant2)
+    # Disable warning about missing pytest.raises.
+    # pylint: disable=E1101
+    pytest.raises(IncompatibleUnitsError, less_than, quant1, quant2)
+    # pylint: enable=E1101
 
 def test_invalid_lte(quant1, quant2):
     """Binary function to assert the operator's exception"""
-    py.test.raises(IncompatibleUnitsError, less_than_or_eq, quant1, quant2)
+    # Disable warning about missing pytest.raises.
+    # pylint: disable=E1101
+    pytest.raises(IncompatibleUnitsError, less_than_or_eq, quant1, quant2)
+    # pylint: enable=E1101
 
 def test_invalid_gte(quant1, quant2):
     """Binary function to assert the operator's exception"""
-    py.test.raises(IncompatibleUnitsError, 
+    # Disable warning about missing pytest.raises.
+    # pylint: disable=E1101
+    pytest.raises(IncompatibleUnitsError, 
                    greater_than_or_eq, 
                    quant1, 
                    quant2)
+    # pylint: enable=E1101
 
 def test_invalid_gt(quant1, quant2):
     """Binary function to assert the operator's exception"""
-    py.test.raises(IncompatibleUnitsError, greater_than, quant1, quant2)
+    # Disable warning about missing pytest.raises.
+    # pylint: disable=E1101
+    pytest.raises(IncompatibleUnitsError, greater_than, quant1, quant2)
+    # pylint: enable=E1101
 
 def test_invalid_eq(quant1, quant2):
     """Binary function to assert no exception raised."""
@@ -119,7 +133,7 @@ def test_invalid_eq(quant1, quant2):
 
 
 def pytest_generate_tests(metafunc):
-    """Py.test test case generation."""
+    """Pytest test case generation."""
     
     if metafunc.function in [test_eq, test_gte, test_lte]:
         for quant in FLAT_QUANTITIES:
@@ -162,6 +176,6 @@ def pytest_generate_tests(metafunc):
 
 def teardown_module(module):
     # Disable warning about not using module.
-    # pylint: disable-msg=W0613
+    # pylint: disable=W0613
     """Called after running all of the tests here."""
     REGISTRY.clear()

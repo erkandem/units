@@ -14,7 +14,7 @@ To hack on this module, you should get:
 
 To run the tests, doctests, and generate a figleaf coverage report:
 
-    py.test -p doctest --doctest-modules -p figleaf -F --figleaf-html figleaf-html units
+    py.test --doctest-modules --figleaf --fig-html=figleaf-html units
 
 Note that figleaf crashes on some tests if they fail. 
 

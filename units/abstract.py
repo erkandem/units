@@ -38,4 +38,9 @@ class AbstractUnit(object):
         """Return this unit's implicit quantity multiplier."""
         raise NotImplementedError
         
+    def str_includes_multiplier(self):
+        """Whether the string name of the unit already encapsulates
+        the unit's multiplier."""
+        raise NotImplementedError
+        
         

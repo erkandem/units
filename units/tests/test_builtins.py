@@ -60,7 +60,7 @@ def test_pow():
 
 def teardown_module(module):
     # Disable warning about not using module.
-    # pylint: disable-msg=W0613
+    # pylint: disable=W0613
     """Called after running all of the tests here."""
     REGISTRY.clear()
 

@@ -1,10 +1,10 @@
 """Tests for addition and subtraction of Quantities"""
 
 # Disable pylint and figleaf warnings about not being able to import py.test.
-# pylint: disable-msg=F0401,C0321
-try: import py.test 
+# pylint: disable=F0401,C0321
+try: import pytest 
 except ImportError: pass
-# pylint: enable-msg=F0401,C0321
+# pylint: enable=F0401,C0321
 
 from units import unit
 from units.compatibility import within_epsilon
@@ -31,7 +31,10 @@ def add_bad():
     
 def test_bad_simple_add():
     """Two quantities with different units should not add together."""
-    py.test.raises(IncompatibleUnitsError, add_bad)
+    # Disable warning about missing pytest.raises.
+    # pylint: disable=E1101
+    pytest.raises(IncompatibleUnitsError, add_bad)
+    # pylint: enable=E1101
 
 def test_good_simple_sub():
     """Should be able to subtract compatible Quantities."""
@@ -49,7 +52,10 @@ def subtract_bad():
     
 def test_bad_simple_sub():
     """Two quantities with different units should not allow subtraction."""
-    py.test.raises(IncompatibleUnitsError, subtract_bad)
+    # Disable warning about missing pytest.raises.
+    # pylint: disable=E1101
+    pytest.raises(IncompatibleUnitsError, subtract_bad)
+    # pylint: enable=E1101
 
 def test_good_composed_add():
     """Two quantities with the same complex units should add together"""
@@ -277,12 +283,12 @@ def test_good_named_sub_w_mult():
 
 def setup_module(module):
     # Disable warning about not using module.
-    # pylint: disable-msg=W0613
+    # pylint: disable=W0613
     """Called by py.test before running any of the tests here."""
     define_units()
 
 def teardown_module(module):
     # Disable warning about not using module.
-    # pylint: disable-msg=W0613
+    # pylint: disable=W0613
     """Called after running all of the tests here."""
     REGISTRY.clear()

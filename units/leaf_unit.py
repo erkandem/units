@@ -15,7 +15,7 @@ class LeafUnit(AbstractUnit):
     specifier = property(get_specifier)
         
     def __new__(cls, specifier, is_si):
-        # pylint: disable-msg=W0613
+        # pylint: disable=W0613
         if specifier not in REGISTRY:
             REGISTRY[specifier] = super(LeafUnit, cls).__new__(cls)
         return REGISTRY[specifier]
