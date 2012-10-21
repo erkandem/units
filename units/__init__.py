@@ -1,5 +1,5 @@
 """Provides support for quantities and units, which strictly disallow
-invalid operations between incompatible quantities. For example, we cannot add 
+invalid operations between incompatible quantities. For example, we cannot add
 2 metres to 5 seconds, because this doesn't make sense.
 
 Why?
@@ -23,14 +23,14 @@ This module is distributed via PyPI. So, you can do::
 or::
 
  easy_install units
- 
+
 or, you can download a bundle yourself at http://pypi.python.org/pypi/units/
 
 If you want the latest::
 
- pip install -e hg+http://www.arandonohue.com/hg/units#egg=units
- 
- 
+ pip install -e hg+https://bitbucket.org/adonohue/units/#egg=units
+
+
 How to Use
 ==========
 
@@ -43,7 +43,7 @@ Units are objects that you use to make quantities::
   >>> metre = unit('m')
   >>> print(metre(7) + metre(11))
   18 m
- 
+
 You can mix and match these quantities in some ways::
 
   >>> from units import unit
@@ -53,7 +53,7 @@ You can mix and match these quantities in some ways::
   5 m / s
   >>> print(metre(10) ** 3)
   1000 m * m * m
- 
+
 But if you make a mistake, you get a safety net::
 
   >>> from units import unit
@@ -64,19 +64,19 @@ But if you make a mistake, you get a safety net::
 
 Make Your Own Units
 -------------------
-Before you start making your own units, you should check out the units that 
+Before you start making your own units, you should check out the units that
 you get for free::
 
   >>> import units.predefined
   >>> units.predefined.define_units()
- 
-It includes all the official SI units, some units for measuring time such as 
-days and weeks, units for volumes like cups, gallons and litres, imperial 
+
+It includes all the official SI units, some units for measuring time such as
+days and weeks, units for volumes like cups, gallons and litres, imperial
 units and more.
 
 You've already seen how to make your own simple units. You call
 the unit function and give it a string::
-  
+
   >>> from units import unit
   >>> blog = unit('blog')
   >>> print(blog(3))
@@ -100,7 +100,7 @@ of other units::
   >>> knut = unit('knut')
   >>> galleon(3.0) + sickle(1.0) - knut(25.0) == knut(1483)
   True
-  
+
 There's also a shortcut for giving names to slightly more complicated units::
 
   >>> from units import unit, named_unit
@@ -123,20 +123,20 @@ If two units are compatible, you can convert between them easily::
   >>> kph = unit('km') / unit('h')
   >>> print(furlongs_per_fortnight(kph(100)))
   167024.576473 fur / fortnight
-  
+
 You can also use lower-level constructors to make your own units and
 quantities. The ways shown above are easier, though.
 
 Warnings
 --------
 
-This module doesn't solve problems with numerical accuracy or 
+This module doesn't solve problems with numerical accuracy or
 floating point conversions::
 
   >>> from units import unit
   >>> unit('m')(5) / unit('m')(7)
   0
-  
+
 More dangerously, certain internal operations have implicit arithmetic
 that can surprise you::
 
@@ -180,7 +180,7 @@ from units.registry import REGISTRY
 
 def unit(specifier):
     """Main factory for units.
-    
+
     >>> unit('m') == unit('m')
     True
     >>> unit('m') != unit('s')
@@ -193,35 +193,35 @@ def unit(specifier):
     else:
         return LeafUnit(specifier, is_si=False)
 
-def named_unit(symbol, 
-         numer, 
-         denom, 
-         multiplier=1, 
+def named_unit(symbol,
+         numer,
+         denom,
+         multiplier=1,
          is_si=True):
     """Shortcut to create and return a new named unit."""
-    
+
     numer_units = [unit(x) for x in numer]
     denom_units = [unit(x) for x in denom]
-    
+
     return NamedComposedUnit(symbol,
-            ComposedUnit(numer_units, 
+            ComposedUnit(numer_units,
                          denom_units,
-                         multiplier), 
+                         multiplier),
             is_si)
 
 def scaled_unit(new_symbol, base_symbol, multiplier, is_si=False):
-    """Shortcut to create and return a new unit that is 
+    """Shortcut to create and return a new unit that is
     a scaled_unit multiplication of another."""
-    return NamedComposedUnit(new_symbol, 
-                             ComposedUnit([unit(base_symbol)], 
-                                          [], 
-                                          multiplier), 
+    return NamedComposedUnit(new_symbol,
+                             ComposedUnit([unit(base_symbol)],
+                                          [],
+                                          multiplier),
                              is_si)
 
 def si_prefixed_unit(unit_str):
     """Create a unit object from the given SI-unit string."""
     assert units.si.can_make(unit_str)
-    return scaled_unit(unit_str, 
-                  units.si.without_prefix(unit_str), 
+    return scaled_unit(unit_str,
+                  units.si.without_prefix(unit_str),
                   units.si.multiplier(unit_str))
 
