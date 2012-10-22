@@ -6,4 +6,4 @@ html
 \.pyc$
 \.figleaf
 \.DS_Store
-
+.tox
