@@ -142,10 +142,10 @@ class Quantity(object):
         return Quantity(self.num ** exponent, self.unit ** exponent)
             
     def __str__(self):
-        if self.unit.str_includes_multiplier():
-            return str(self.num) + ' ' + str(self.unit)
-        else:
-            return str(self.num * self.unit.squeeze()) + ' ' + str(self.unit)
+        num = self.num
+        if not self.unit.str_includes_multiplier():
+            num *= self.unit.squeeze()
+        return '%0.2f %s' % (num, self.unit)
 
     def __repr__(self):
         return ("Quantity(" + 

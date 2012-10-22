@@ -12,8 +12,8 @@ def test_quantity_repr():
 
 def test_quantity_str():
     """User-friendly string representation of quantities."""
-    assert str(Quantity(1, unit('m'))) == "1 m"
-    
+    assert str(Quantity(1, unit('m'))) == "1.00 m"
+
 def test_leaf_unit_repr():
     """Developer-friendly string representation of leaf units."""
     assert repr(unit('m')) == "LeafUnit('m', True)"
