@@ -67,8 +67,8 @@ class Quantity(object):
     
     def __rmul__(self, other):
         return self * other
-    
-    def __div__(self, other):
+
+    def __truediv__(self, other):
         if hasattr(other, 'num'):
             new_unit = self.unit / other.unit
             if hasattr(new_unit, "squeeze"):
@@ -79,10 +79,17 @@ class Quantity(object):
             
         else:
             return Quantity(self.num / other, self.unit)
-    
-    def __rdiv__(self, other):
+
+    __floordiv__ = __truediv__
+    # Backwards-compatibility for <= Python 2.7
+    __div__ = __truediv__
+
+    def __rtruediv__(self, other):
         return Quantity(other / self.num, self.unit.invert())
-            
+
+    # Backwards-compatibility for <= Python 2.7
+    __rdiv__ = __rtruediv__
+
     def __eq__(self, other):
         if not compatible(self.unit, other.unit):
             return False
@@ -91,21 +98,30 @@ class Quantity(object):
         
     def __ne__(self, other):
         return not self == other
-        
-    def __cmp__(self, other):
+
+    def __lt__(self, other):
         self._ensure_same_type(other)
         return cmp(self.num * self.unit.squeeze(),
                 other.num * other.unit.squeeze())
-                
+
+    __cmp__ = __lt__
+
+    def __le__(self, other):
+        return self == other or self < other
+
     def __complex__(self):
         return complex(self.num)
         
     def __float__(self):
         return float(self.num)
-        
+
+    def __index__(self):
+        return self.num
+
     def __hex__(self):
-        return hex(self.num)
-        
+        """Backwards-compatibility with Python <= 2.7."""
+        return hex(self.__index__())
+
     def __int__(self):
         return int(self.num)
                 
@@ -135,3 +151,9 @@ class Quantity(object):
         return ("Quantity(" + 
                 ", ".join([repr(x) for x in [self.num, self.unit]]) +
                 ")")
+
+try:
+    cmp
+except NameError:
+    def cmp(a, b):
+        return (a > b) - (a < b)

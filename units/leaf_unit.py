@@ -34,6 +34,14 @@ class LeafUnit(AbstractUnit):
     def str_includes_multiplier(self):
         return True
 
+    def __lt__(self, other):
+        """In Python <= 2.7, objects without a __cmp__ method could be
+        implicitly compared by their ids. It gave a consistent order within a
+        single program run. The __lt__ method is now required for sorting, and
+        here we just use the identity which should have the same effect.
+        """
+        return id(self) < id(other)
+
     def __repr__(self):
         return ("LeafUnit(" + 
                 ", ".join([repr(x) for x in [self.specifier,
@@ -45,13 +53,16 @@ class LeafUnit(AbstractUnit):
             return other * self
         else:
             return ComposedUnit([self, other], [])
-    
-    def __div__(self, other):
+
+    def __truediv__(self, other):
         if hasattr(other, "invert"):
             return other.invert() * self
         else:
             return ComposedUnit([self], [other])
-    
+
+    # Backwards-compatibility for <= Python 2.7
+    __div__ = __truediv__
+
     def invert(self):
         """Return (this unit)^-1"""
         return ComposedUnit([], [self])

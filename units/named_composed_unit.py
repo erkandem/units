@@ -48,10 +48,13 @@ class NamedComposedUnit(AbstractUnit):
     
     def __mul__(self, other):
         return ComposedUnit([self, other], [])
-    
-    def __div__(self, other):
+
+    def __truediv__(self, other):
         return ComposedUnit([self], [other])
-        
+
+    # Backwards-compatibility for <= Python 2.7
+    __div__ = __truediv__
+
     __str__ = get_name
     
     def str_includes_multiplier(self):

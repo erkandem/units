@@ -165,15 +165,18 @@ class ComposedUnit(AbstractUnit):
     def invert(self):
         """Return (this unit)^-1."""
         return ComposedUnit(self.denom, self.numer, 1 / self.squeeze())
-        
-    def __div__(self, other):
+
+    def __truediv__(self, other):
         if hasattr(other, "invert"):
             return self * other.invert()
         else:
             return ComposedUnit(self.numer, 
                                 self.denom + [other], 
                                 self.squeeze() / other.squeeze())
-                                
+
+    # Backwards-compatibility for <= Python 2.7
+    __div__ = __truediv__
+
     def __pow__(self, exponent):
         return ComposedUnit(self.numer * exponent, 
                             self.denom * exponent, 
