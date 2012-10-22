@@ -8,6 +8,7 @@ To hack on this module, you should get:
  * Mercurial (hg)
  * pylint
  * py.test
+ * tox
  * epydoc
  * figleaf
  * Unix
@@ -16,7 +17,11 @@ To run the tests, doctests, and generate a figleaf coverage report:
 
     py.test --doctest-modules --figleaf --fig-html=figleaf-html units
 
-Note that figleaf crashes on some tests if they fail. 
+Note that figleaf crashes on some tests if they fail.
+
+To run the tests on all versions of Python that units supports:
+
+    tox
 
 To generate the html documentation, run:
 
@@ -32,7 +37,7 @@ To make this file's HTML version (if you have markdown installed):
 
 To do it all:
 
-<!-- 
+<!--
     exit
 -->
 
