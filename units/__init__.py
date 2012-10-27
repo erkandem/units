@@ -167,7 +167,7 @@ UNIX, the included unitPython/unitPython.sh does this for you.
 """
 
 __author__    = 'Aran Donohue'
-__version__   = '0.04'
+__version__   = '0.05'
 __copyright__ = '2010'
 __license__   = 'Python Software Foundation License'
 __contact__   = 'aran@arandonohue.com'
