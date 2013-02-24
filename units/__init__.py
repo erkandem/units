@@ -42,7 +42,7 @@ Units are objects that you use to make quantities::
   >>> from units import unit
   >>> metre = unit('m')
   >>> print(metre(7) + metre(11))
-  18 m
+  18.00 m
 
 You can mix and match these quantities in some ways::
 
@@ -50,9 +50,9 @@ You can mix and match these quantities in some ways::
   >>> metre = unit('m')
   >>> second = unit('s')
   >>> print(metre(10) / second(2))
-  5 m / s
+  5.00 m / s
   >>> print(metre(10) ** 3)
-  1000 m * m * m
+  1000.00 m * m * m
 
 But if you make a mistake, you get a safety net::
 
@@ -80,7 +80,7 @@ the unit function and give it a string::
   >>> from units import unit
   >>> blog = unit('blog')
   >>> print(blog(3))
-  3 blog
+  3.00 blog
 
 These units are automatically incompatible with other units.
 
@@ -109,10 +109,10 @@ There's also a shortcut for giving names to slightly more complicated units::
   >>> twp = named_unit('tweetpack', ['tweet', 'meme'], ['day'], 5)
   >>> # A tweetpack is 5 tweetmemes per day
   >>> print(twp(2))
-  2 tweetpack
+  2.00 tweetpack
   >>> tweet, meme, day = [unit(x) for x in ['tweet', 'meme', 'day']]
   >>> print(twp(5) - (tweet(5) * meme(4) / day(2)))
-  3.0 tweetpack
+  3.00 tweetpack
 
 If two units are compatible, you can convert between them easily::
 
@@ -122,7 +122,7 @@ If two units are compatible, you can convert between them easily::
   >>> furlongs_per_fortnight = unit('fur') / unit('fortnight')
   >>> kph = unit('km') / unit('h')
   >>> print(furlongs_per_fortnight(kph(100)))
-  167024.576473 fur / fortnight
+  167024.58 fur / fortnight
 
 You can also use lower-level constructors to make your own units and
 quantities. The ways shown above are easier, though.
