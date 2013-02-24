@@ -10,14 +10,11 @@ To hack on this module, you should get:
  * py.test
  * tox
  * epydoc
- * figleaf
  * Unix
 
-To run the tests, doctests, and generate a figleaf coverage report:
+To run the tests and doctests:
 
-    py.test --doctest-modules --figleaf --fig-html=figleaf-html units
-
-Note that figleaf crashes on some tests if they fail.
+    py.test --doctest-modules units
 
 To run the tests on all versions of Python that units supports:
 
