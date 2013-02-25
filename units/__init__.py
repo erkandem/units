@@ -57,10 +57,11 @@ You can mix and match these quantities in some ways::
 But if you make a mistake, you get a safety net::
 
   >>> from units import unit
-  >>> unit('m')(5) + unit('s')(5)
-  Traceback (most recent call last):
-  ...
-  IncompatibleUnitsError
+  >>> try:
+  ...   unit('m')(5) + unit('s')(5)
+  ... except units.exception.IncompatibleUnitsError:
+  ...   print('Got an error!')
+  Got an error!
 
 Make Your Own Units
 -------------------
@@ -131,21 +132,22 @@ Warnings
 --------
 
 This module doesn't solve problems with numerical accuracy or
-floating point conversions::
+floating point conversions, and Python 2 vs. 3 issues abound::
 
-  >>> from units import unit
-  >>> unit('m')(5) / unit('m')(7)
-  0
+  from units import unit
+  unit('m')(5) / unit('m')(7)
+  # 0 in Python 2.x, 0.7142857142857143 in Python 3.
+
 
 More dangerously, certain internal operations have implicit arithmetic
 that can surprise you::
 
-  >>> from units import unit, scaled_unit
-  >>> sickle = scaled_unit('sickle', 'knut', 29)
-  >>> galleon = scaled_unit('galleon', 'sickle', 17)
-  >>> knut = unit('knut')
-  >>> galleon(3) + sickle(1) - knut(25) == galleon(3)
-  True
+  from units import unit, scaled_unit
+  sickle = scaled_unit('sickle', 'knut', 29)
+  galleon = scaled_unit('galleon', 'sickle', 17)
+  knut = unit('knut')
+  galleon(3) + sickle(1) - knut(25) == galleon(3)
+  # True in Python 2.x, False in Python 3
 
 
 Using Modified Python

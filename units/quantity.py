@@ -1,5 +1,5 @@
-"""Quantities are numbers with units. 
-The combination of quantities is dependent on the compatibilities 
+"""Quantities are numbers with units.
+The combination of quantities is dependent on the compatibilities
 of their units."""
 
 from units.compatibility import compatible
@@ -7,13 +7,13 @@ from units.exception import IncompatibleUnitsError
 
 class Quantity(object):
     """A number with a unit attached."""
-    
+
     def __new__(cls, num, unit):
         if hasattr(unit, 'is_si'):
             return super(Quantity, cls).__new__(cls)
         else:
             return num * unit
-    
+
     def __init__(self, num, unit):
         self._num, self._unit = num, unit
 
@@ -21,7 +21,7 @@ class Quantity(object):
         """The scalar number of this quantity"""
         return self._num
     num = property(get_num)
-    
+
     def get_unit(self):
         """The standalone unit of this quantity"""
         return self._unit
@@ -41,17 +41,17 @@ class Quantity(object):
 
     def __add__(self, other):
         self._ensure_same_type(other)
-        return Quantity(self.num + 
-                            ((other.num * other.unit.squeeze()) / 
-                                self.unit.squeeze()), 
+        return Quantity(self.num +
+                            ((other.num * other.unit.squeeze()) /
+                                self.unit.squeeze()),
                         self.unit)
-    
+
     def __sub__(self, other):
         self._ensure_same_type(other)
-        return Quantity(self.num - 
-                            other.num * other.unit.squeeze() / 
-                                self.unit.squeeze(), 
-                        self.unit)    
+        return Quantity(self.num -
+                            other.num * other.unit.squeeze() /
+                                self.unit.squeeze(),
+                        self.unit)
 
     def __mul__(self, other):
         if hasattr(other, 'num'):
@@ -61,10 +61,10 @@ class Quantity(object):
             else:
                 # The unit multiplication unboxed
                 return self.num * other.num * new_unit
-            
+
         else:
             return Quantity(self.num * other, self.unit)
-    
+
     def __rmul__(self, other):
         return self * other
 
@@ -76,7 +76,7 @@ class Quantity(object):
             else:
                 # The unit division unboxed
                 return self.num / other.num * new_unit
-            
+
         else:
             return Quantity(self.num / other, self.unit)
 
@@ -95,23 +95,26 @@ class Quantity(object):
             return False
         else:
             return cmp(self, other) == 0
-        
+
     def __ne__(self, other):
         return not self == other
 
     def __lt__(self, other):
         self._ensure_same_type(other)
+        return self.num * self.unit.squeeze() < \
+                other.num * other.unit.squeeze()
+
+    def __cmp__(self, other):
+        self._ensure_same_type(other)
         return cmp(self.num * self.unit.squeeze(),
                 other.num * other.unit.squeeze())
-
-    __cmp__ = __lt__
 
     def __le__(self, other):
         return self == other or self < other
 
     def __complex__(self):
         return complex(self.num)
-        
+
     def __float__(self):
         return float(self.num)
 
@@ -124,23 +127,23 @@ class Quantity(object):
 
     def __int__(self):
         return int(self.num)
-                
+
     def __neg__(self):
         return Quantity(-self.num, self.unit)
-    
+
     def __nonzero__(self):
         return bool(self.num)
     __bool__ = __nonzero__
-    
+
     def __oct__(self):
         return oct(self.num)
-    
+
     def __pos__(self):
         return self.num > 0
-        
+
     def __pow__(self, exponent):
         return Quantity(self.num ** exponent, self.unit ** exponent)
-            
+
     def __str__(self):
         num = self.num
         if not self.unit.str_includes_multiplier():
@@ -148,7 +151,7 @@ class Quantity(object):
         return '%0.2f %s' % (num, self.unit)
 
     def __repr__(self):
-        return ("Quantity(" + 
+        return ("Quantity(" +
                 ", ".join([repr(x) for x in [self.num, self.unit]]) +
                 ")")
 
