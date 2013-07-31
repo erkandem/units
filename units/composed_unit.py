@@ -123,6 +123,7 @@ class ComposedUnit(AbstractUnit):
             denoms = self.orig_denom
         else:
             numers = self.numer
+            denoms = self.denom
 
         if self.denom:
             return ((' * '.join([str(x) for x in numers]) or '1') + 
