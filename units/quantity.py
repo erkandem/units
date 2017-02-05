@@ -17,6 +17,9 @@ class Quantity(object):
     def __init__(self, num, unit):
         self._num, self._unit = num, unit
 
+    def __getnewargs__(self):
+        return (self._num, self._unit)
+
     def get_num(self):
         """The scalar number of this quantity"""
         return self._num

@@ -19,6 +19,6 @@ authors, and replace references to Python with references to this module.
 The intent is for this code to be released under the same license as
 Python itself.
 
-Thanks to Andrew Trusty and Rory Tulk for advice and reviews, Rob Mecham
-and Jonathan Woodard for work on bugs, and Christopher Peplin for porting
-to Python 3.
+Thanks to Andrew Trusty and Rory Tulk for advice and reviews; Rob Mecham,
+Jonathan Woodard, and Adam Peacock for work on bugs; and Christopher Peplin for
+porting to Python 3.

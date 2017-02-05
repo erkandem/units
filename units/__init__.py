@@ -169,7 +169,7 @@ UNIX, the included unitPython/unitPython.sh does this for you.
 """
 
 __author__    = 'Aran Donohue'
-__version__   = '0.06'
+__version__   = '0.07'
 __copyright__ = '2010'
 __license__   = 'Python Software Foundation License'
 __contact__   = 'aran@arandonohue.com'
@@ -226,4 +226,3 @@ def si_prefixed_unit(unit_str):
     return scaled_unit(unit_str,
                   units.si.without_prefix(unit_str),
                   units.si.multiplier(unit_str))
-
