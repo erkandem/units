@@ -7,7 +7,7 @@ To hack on this module, you should get:
 
  * Mercurial (hg)
  * pylint
- * py.test
+ * pytest
  * tox
  * epydoc
  * Unix
