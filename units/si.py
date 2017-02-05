@@ -29,13 +29,13 @@ PREFIXES = {
 
 def prefixed(unit_str):
     """True iff the given string is prefixed by an SI prefix."""
-    return ((unit_str[0:2] in PREFIXES and len(unit_str) > 2) or 
-           (unit_str[0] in PREFIXES and len(unit_str) > 1))
+    return ((unit_str[0:2] in PREFIXES and len(unit_str) > 2) or
+            (unit_str[0] in PREFIXES and len(unit_str) > 1))
 
 
 def multiplier(unit_str):
     """The multiplier implied by the SI-prefixed given string."""
-    assert(prefixed(unit_str))
+    assert prefixed(unit_str)
     if unit_str[0:2] in PREFIXES:
         return PREFIXES[unit_str[0:2]]
     else:
@@ -44,7 +44,7 @@ def multiplier(unit_str):
 
 def without_prefix(unit_str):
     """The non-prefixed version of the given SI-prefixed string."""
-    assert(prefixed(unit_str))
+    assert prefixed(unit_str)
     if unit_str[0:2] in PREFIXES:
         return unit_str[2:]
     else:

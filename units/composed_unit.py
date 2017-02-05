@@ -160,7 +160,7 @@ class ComposedUnit(AbstractUnit):
 
     def __mul__(self, other):
         if hasattr(other, "numer"):
-            assert(hasattr(other, "denom"))
+            assert hasattr(other, "denom")
             return ComposedUnit(self.numer + other.numer,
                                 self.denom + other.denom,
                                 self.squeeze() * other.squeeze())

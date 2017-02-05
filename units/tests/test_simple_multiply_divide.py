@@ -19,20 +19,20 @@ def test_commutative_multiply():
 
 def test_simple_multiply_quantity():
     """Simple multiplication of quantities"""
-    assert (Quantity(2, unit('m')) * 
+    assert (Quantity(2, unit('m')) *
             Quantity(2, unit('s')) ==
             Quantity(4, unit('m') * unit('s')))
-            
-    assert (Quantity(2, unit('s')) * 
+
+    assert (Quantity(2, unit('s')) *
             Quantity(2, unit('m')) ==
             Quantity(4, unit('m') * unit('s')))
 
 def test_simple_divide_quantity():
     """Simple division of quantities"""
-    assert (Quantity(8, unit('m')) / 
+    assert (Quantity(8, unit('m')) /
             Quantity(2, unit('s')) ==
             Quantity(4, unit('m') / unit('s')))
-            
+
 def test_multiply_scalar():
     """Quantities * scalars"""
     assert (Quantity(8, unit('m')) * 2 ==
@@ -56,7 +56,7 @@ def test_rdivide_scalar():
 def test_multiply_composed_scalar():
     """Composed quantities * scalars"""
     m_per_s = unit('m') / unit('s')
-    
+
     assert (Quantity(8, m_per_s) * 2 ==
             Quantity(16, m_per_s))
 
@@ -83,15 +83,15 @@ def test_rdivide_composed_scalar():
 
 def test_multiply_named_scalar():
     """Named quantities * scalars"""
-    m_per_s = NamedComposedUnit('vel', 
+    m_per_s = NamedComposedUnit('vel',
                                 unit('m') / unit('s'))
-    
+
     assert (Quantity(8, m_per_s) * 2 ==
             Quantity(16, m_per_s))
 
 def test_rmultiply_named_scalar():
     """Scalars * Named quantities"""
-    m_per_s = NamedComposedUnit('vel', 
+    m_per_s = NamedComposedUnit('vel',
                                 unit('m') / unit('s'))
 
     assert (2 * Quantity(8, m_per_s) ==
@@ -99,7 +99,7 @@ def test_rmultiply_named_scalar():
 
 def test_divide_named_scalar():
     """Named quantities / scalars"""
-    m_per_s = NamedComposedUnit('vel', 
+    m_per_s = NamedComposedUnit('vel',
                                 unit('m') / unit('s'))
 
     assert (Quantity(8, m_per_s) / 2 ==
@@ -107,7 +107,7 @@ def test_divide_named_scalar():
 
 def test_rdivide_named_scalar():
     """Scalars / Named quantities"""
-    m_per_s = NamedComposedUnit('vel', 
+    m_per_s = NamedComposedUnit('vel',
                                 unit('m') / unit('s'))
 
     assert (4 / Quantity(2, m_per_s) ==
@@ -118,7 +118,7 @@ def test_unboxing_multiply():
     m_per_s = unit('m') / unit('s')
     s_per_m = unit('s') / unit('m')
     assert m_per_s(5) * s_per_m(5) == 25
-    
+
 def test_unboxing_divide():
     """Division causing an unboxing to number"""
     metre = unit('m')

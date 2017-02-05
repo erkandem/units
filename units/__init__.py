@@ -168,11 +168,11 @@ UNIX, the included unitPython/unitPython.sh does this for you.
 @status: under development
 """
 
-__author__    = 'Aran Donohue'
-__version__   = '0.07'
+__author__ = 'Aran Donohue'
+__version__ = '0.07'
 __copyright__ = '2010'
-__license__   = 'Python Software Foundation License'
-__contact__   = 'aran@arandonohue.com'
+__license__ = 'Python Software Foundation License'
+__contact__ = 'aran@arandonohue.com'
 
 import units.si
 from units.composed_unit import ComposedUnit
@@ -196,20 +196,20 @@ def unit(specifier):
         return LeafUnit(specifier, is_si=False)
 
 def named_unit(symbol,
-         numer,
-         denom,
-         multiplier=1,
-         is_si=True):
+               numer,
+               denom,
+               multiplier=1,
+               is_si=True):
     """Shortcut to create and return a new named unit."""
 
     numer_units = [unit(x) for x in numer]
     denom_units = [unit(x) for x in denom]
 
     return NamedComposedUnit(symbol,
-            ComposedUnit(numer_units,
-                         denom_units,
-                         multiplier),
-            is_si)
+                             ComposedUnit(numer_units,
+                                          denom_units,
+                                          multiplier),
+                             is_si)
 
 def scaled_unit(new_symbol, base_symbol, multiplier, is_si=False):
     """Shortcut to create and return a new unit that is
@@ -224,5 +224,5 @@ def si_prefixed_unit(unit_str):
     """Create a unit object from the given SI-unit string."""
     assert units.si.can_make(unit_str)
     return scaled_unit(unit_str,
-                  units.si.without_prefix(unit_str),
-                  units.si.multiplier(unit_str))
+                       units.si.without_prefix(unit_str),
+                       units.si.multiplier(unit_str))

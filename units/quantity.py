@@ -45,15 +45,15 @@ class Quantity(object):
     def __add__(self, other):
         self._ensure_same_type(other)
         return Quantity(self.num +
-                            ((other.num * other.unit.squeeze()) /
-                                self.unit.squeeze()),
+                        ((other.num * other.unit.squeeze()) /
+                         self.unit.squeeze()),
                         self.unit)
 
     def __sub__(self, other):
         self._ensure_same_type(other)
         return Quantity(self.num -
-                            other.num * other.unit.squeeze() /
-                                self.unit.squeeze(),
+                        ((other.num * other.unit.squeeze()) /
+                         self.unit.squeeze()),
                         self.unit)
 
     def __mul__(self, other):
@@ -110,7 +110,7 @@ class Quantity(object):
     def __cmp__(self, other):
         self._ensure_same_type(other)
         return cmp(self.num * self.unit.squeeze(),
-                other.num * other.unit.squeeze())
+                   other.num * other.unit.squeeze())
 
     def __le__(self, other):
         return self == other or self < other
